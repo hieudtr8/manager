@@ -6,12 +6,12 @@ import { User } from './user.model';
 })
 export class UsersService {
   private users: User[] = [];
+  usersChanged = new Subject<User[]>();
   constructor() {
     if (localStorage.getItem('listUsers')) {
-      this.users = this.getUserStorage();
+      this.users = this.getUsers();
     }
   }
-  usersChanged = new Subject<User[]>();
   getUsers() {
     this.users = this.getUserStorage();
     return this.users;

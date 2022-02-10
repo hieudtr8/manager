@@ -47,11 +47,13 @@ export class TableComponent implements OnInit {
     }
   }
   onDelete(id: number) {
-    if (this.currentPath == '/users') {
-      this.usersService.deleteUser(id);
-    }
-    if (this.currentPath == '/products') {
-      this.productsService.deleteProduct(id);
+    if (confirm('Do you really want to delete this record?')) {
+      if (this.currentPath == '/users') {
+        this.usersService.deleteUser(id);
+      }
+      if (this.currentPath == '/products') {
+        this.productsService.deleteProduct(id);
+      }
     }
   }
 }
