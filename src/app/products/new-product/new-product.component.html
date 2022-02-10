@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+      <div class="form-group">
+        <label for="id">ID</label>
+        <input
+          type="number"
+          id="id"
+          name="id"
+          class="form-control"
+          formControlName="id"
+        />
+        <span
+          *ngIf="!signupForm.get('id').valid && signupForm.get('id').touched"
+        >
+          <p>Please input valid id!</p></span
+        >
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control"
+            name="title"
+            formControlName="title"
+          />
+          <span
+            *ngIf="
+              !signupForm.get('title').valid && signupForm.get('title').touched
+            "
+          >
+            <p>Please input title id!</p></span
+          >
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input
+            type="number"
+            id="quantity"
+            class="form-control"
+            formControlName="quantity"
+            name="quantity"
+          />
+        </div>
+        <span
+          *ngIf="
+            !signupForm.get('quantity').valid &&
+            signupForm.get('quantity').touched
+          "
+        >
+          <p>Please input valid quantity!</p></span
+        >
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            class="form-control"
+            formControlName="price"
+          />
+        </div>
+        <span
+          *ngIf="
+            !signupForm.get('price').valid && signupForm.get('price').touched
+          "
+        >
+          <p>Please input valid price !</p></span
+        >
+        <button
+          class="btn btn-primary"
+          [disabled]="!signupForm.valid"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<!-- Table  -->
+<table class="table">
+  <!-- Table Head -->
+  <thead>
+    <tr *ngIf="displayProducts; else displayUsers">
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col"></th>
+    </tr>
+    <ng-template #displayUsers>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Job</th>
+        <th scope="col">Gender</th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+  </thead>
+  <!-- TABLE BODY -->
+  <tbody *ngIf="displayProducts; else displayItemUsers">
+    <tr *ngFor="let item of listDisplay; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ item.title }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.price }}</td>
+      <td style="width: 10px" class="position-relative">
+        <div ngbDropdown class="d-inline-block">
+          <i
+            id="dropdownToggle"
+            ngbDropdownToggle
+            class="fa-solid position-absolute fa-ellipsis dropdown-toggle-split"
+          ></i>
+          <div ngbDropdownMenu aria-labelledby="dropdownToggle">
+            <button ngbDropdownItem (click)="onEdit(item.id)">Edit</button>
+            <button ngbDropdownItem (click)="onDelete(item.id)">Delete</button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <ng-template #displayItemUsers>
+    <tr *ngFor="let item of listDisplay; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ item.name }}</td>
+      <td>{{ item.age }}</td>
+      <td>{{ item.job }}</td>
+      <td>{{ item.gender }}</td>
+      <td style="width: 10px" scope="row" class="position-relative">
+        <div ngbDropdown class="d-inline-block">
+          <i
+            id="dropdownToggle"
+            ngbDropdownToggle
+            class="fa-solid fa-ellipsis dropdown-toggle-split"
+          ></i>
+          <div ngbDropdownMenu aria-labelledby="dropdownToggle">
+            <button ngbDropdownItem (click)="onEdit(item.id)">Edit</button>
+            <button ngbDropdownItem (click)="onDelete(item.id)">Delete</button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</table>

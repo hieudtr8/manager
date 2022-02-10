@@ -1,0 +1,9 @@
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+label.gender-radio {
+  position: absolute;
+  left: 12px;
+  bottom: -12px;
+  padding: 5px;
+}
