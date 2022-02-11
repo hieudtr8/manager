@@ -16,6 +16,7 @@ import { NewProductComponent } from './products/new-product/new-product.componen
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     MatNativeDateModule,
     MatDatepickerModule,
     NgbModule,

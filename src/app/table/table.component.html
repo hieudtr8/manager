@@ -26,7 +26,7 @@
       <th scope="row">{{ i + 1 }}</th>
       <td>{{ item.title }}</td>
       <td>{{ item.quantity }}</td>
-      <td>{{ item.price }}</td>
+      <td>{{ item.price | currency: "VND":"symbol" }}</td>
       <td style="width: 10px" class="position-relative">
         <div ngbDropdown class="d-inline-block">
           <i
@@ -46,7 +46,7 @@
     <tr *ngFor="let item of listDisplay; let i = index">
       <th scope="row">{{ i + 1 }}</th>
       <td>{{ item.name }}</td>
-      <td>{{ item.age | date:'mediumDate' }}</td>
+      <td>{{ item.age | date: "mediumDate" }}</td>
       <td>{{ item.job }}</td>
       <td>{{ item.gender }}</td>
       <td style="width: 10px" scope="row" class="position-relative">

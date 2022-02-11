@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../user.model';
 import { UsersService } from '../users.service';
 
@@ -18,7 +19,8 @@ export class NewUserComponent implements OnInit {
   constructor(
     private userService: UsersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 70, 0, 1);
@@ -60,14 +62,16 @@ export class NewUserComponent implements OnInit {
     this.user.job = this.signupForm.value.job;
 
     this.submittedProperty = true;
-    this.signupForm.reset();
     if (this.editMode) {
       this.userService.updateUser(this.id, this.user);
+      this.toastr.success('Edit user successfully!');
     } else {
       this.userService.addUser(this.user);
+      this.signupForm.reset();
+      this.toastr.success('Add user successfully!');
+      this.router.navigate(['/users'], { relativeTo: this.route });
     }
     this.userService.updateUserStorage();
-    this.router.navigate(['/users'], { relativeTo: this.route });
   }
   createFormEdit(input) {
     this.signupForm = new FormGroup({
@@ -77,12 +81,7 @@ export class NewUserComponent implements OnInit {
       ]),
       username: new FormControl(input.name, [Validators.required]),
       gender: new FormControl(input.gender, [Validators.required]),
-      age: new FormControl(input.age, [
-        Validators.required,
-        Validators.pattern(
-          /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/g
-        ),
-      ]),
+      age: new FormControl(input.age, [Validators.required]),
       job: new FormControl(input.job, Validators.required),
     });
   }

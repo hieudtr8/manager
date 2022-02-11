@@ -64,10 +64,14 @@ export class NewProductComponent implements OnInit {
         Validators.required,
       ]),
       title: new FormControl(input.title, [Validators.required]),
-      quantity: new FormControl(input.quantity, [Validators.required]),
+      quantity: new FormControl(input.quantity, [
+        Validators.required,
+        Validators.min(0),
+      ]),
       price: new FormControl(input.price, [
         Validators.pattern(/^-?(0|[1-9]\d*)?$/),
         Validators.required,
+        Validators.min(0),
       ]),
     });
   }
@@ -76,12 +80,14 @@ export class NewProductComponent implements OnInit {
       id: new FormControl(null, [
         Validators.pattern(/^-?(0|[1-9]\d*)?$/),
         Validators.required,
+        Validators.min(0),
       ]),
       title: new FormControl(null, [Validators.required]),
-      quantity: new FormControl(null, [Validators.required]),
+      quantity: new FormControl(null, [Validators.required, Validators.min(0)]),
       price: new FormControl(null, [
         Validators.pattern(/^-?(0|[1-9]\d*)?$/),
         Validators.required,
+        Validators.min(0),
       ]),
     });
   }

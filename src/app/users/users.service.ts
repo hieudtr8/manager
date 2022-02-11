@@ -9,11 +9,10 @@ export class UsersService {
   usersChanged = new Subject<User[]>();
   constructor() {
     if (localStorage.getItem('listUsers')) {
-      this.users = this.getUsers();
+      this.users = this.getUserStorage();
     }
   }
   getUsers() {
-    this.users = this.getUserStorage();
     return this.users;
   }
   getUser(id: number) {
