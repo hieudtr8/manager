@@ -1,7 +1,7 @@
 export class User {
   public id: number;
   public name: string;
-  public age: number;
+  public age: string;
   public gender: string;
   public job: string;
 
@@ -9,7 +9,7 @@ export class User {
     id: number,
     gender: string,
     name: string,
-    age: number,
+    age: string,
     job: string
   ) {
     this.id = id;

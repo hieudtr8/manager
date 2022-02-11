@@ -46,7 +46,7 @@
     <tr *ngFor="let item of listDisplay; let i = index">
       <th scope="row">{{ i + 1 }}</th>
       <td>{{ item.name }}</td>
-      <td>{{ item.age }}</td>
+      <td>{{ item.age | date:'mediumDate' }}</td>
       <td>{{ item.job }}</td>
       <td>{{ item.gender }}</td>
       <td style="width: 10px" scope="row" class="position-relative">

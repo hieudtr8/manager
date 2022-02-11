@@ -13,7 +13,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewUserComponent } from './users/new-user/new-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewProductComponent } from './products/new-product/new-product.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,15 @@ import { NewProductComponent } from './products/new-product/new-product.componen
     NewUserComponent,
     NewProductComponent,
   ],
-  imports: [BrowserModule, ReactiveFormsModule, AppRoutingModule, NgbModule],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    NgbModule,
+  ],
   providers: [UsersService, ProductsService],
   bootstrap: [AppComponent],
 })

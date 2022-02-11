@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -10,17 +11,26 @@ import { UsersService } from '../users.service';
   styleUrls: ['./new-user.component.css'],
 })
 export class NewUserComponent implements OnInit {
+  minDate: Date;
+  maxDate: Date;
+  format: 'dd/mm/yyyy';
+
   constructor(
     private userService: UsersService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 70, 0, 1);
+    this.maxDate = new Date(currentYear - 0, 0, 0);
+  }
+
   signupForm: FormGroup;
   genders = ['male', 'female'];
   user: User = {
     id: 0,
     name: '',
-    age: 0,
+    age: '',
     gender: '',
     job: '',
   };
@@ -68,9 +78,10 @@ export class NewUserComponent implements OnInit {
       username: new FormControl(input.name, [Validators.required]),
       gender: new FormControl(input.gender, [Validators.required]),
       age: new FormControl(input.age, [
-        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
         Validators.required,
-        Validators.max(90),
+        Validators.pattern(
+          /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/g
+        ),
       ]),
       job: new FormControl(input.job, Validators.required),
     });
@@ -83,11 +94,7 @@ export class NewUserComponent implements OnInit {
       ]),
       username: new FormControl(null, [Validators.required]),
       gender: new FormControl(null, [Validators.required]),
-      age: new FormControl(null, [
-        Validators.pattern(/^-?(0|[1-9]\d*)?$/),
-        Validators.required,
-        Validators.max(90),
-      ]),
+      age: new FormControl(null, [Validators.required]),
       job: new FormControl(null, Validators.required),
     });
   }
