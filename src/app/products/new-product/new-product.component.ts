@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from '../product.model';
 import { ProductsService } from '../products.service';
 
@@ -19,7 +20,8 @@ export class NewProductComponent implements OnInit {
   constructor(
     private productService: ProductsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {}
   // --- Edit Products ----
   editMode = false;
@@ -48,14 +50,28 @@ export class NewProductComponent implements OnInit {
     this.product.quantity = this.signupForm.value.quantity;
     this.product.price = this.signupForm.value.price;
 
-    // this.signupForm.reset();
     if (this.editMode) {
       this.productService.updateProduct(this.id, this.product);
+      this.toastr.success('Edit product successfully!');
     } else {
       this.productService.addProduct(this.product);
+      this.signupForm.reset();
+      this.toastr.success('Add product successfully!');
+      this.router.navigate(['/products'], { relativeTo: this.route });
     }
     this.productService.updateProductStorage();
-    this.router.navigate(['/products'], { relativeTo: this.route });
+  }
+  duplicatedIdValidator(control: FormControl) {
+    let id = control.value;
+    let list_products = this.productService.getProducts();
+    if (id && list_products.find((obj) => obj.id == id)) {
+      return {
+        duplicatedId: {
+          id: id,
+        },
+      };
+    }
+    return null;
   }
   createFormEdit(input) {
     this.signupForm = new FormGroup({
@@ -81,6 +97,7 @@ export class NewProductComponent implements OnInit {
         Validators.pattern(/^-?(0|[1-9]\d*)?$/),
         Validators.required,
         Validators.min(0),
+        this.duplicatedIdValidator.bind(this),
       ]),
       title: new FormControl(null, [Validators.required]),
       quantity: new FormControl(null, [Validators.required, Validators.min(0)]),

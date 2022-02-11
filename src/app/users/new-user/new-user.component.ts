@@ -73,6 +73,18 @@ export class NewUserComponent implements OnInit {
     }
     this.userService.updateUserStorage();
   }
+  duplicatedIdValidator(control: FormControl) {
+    let id = control.value;
+    let list_users = this.userService.getUsers();
+    if (id && list_users.find((obj) => obj.id == id)) {
+      return {
+        duplicatedId: {
+          id: id,
+        },
+      };
+    }
+    return null;
+  }
   createFormEdit(input) {
     this.signupForm = new FormGroup({
       id: new FormControl(input.id, [
@@ -89,7 +101,9 @@ export class NewUserComponent implements OnInit {
     this.signupForm = new FormGroup({
       id: new FormControl(null, [
         Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+        Validators.min(0),
         Validators.required,
+        this.duplicatedIdValidator.bind(this),
       ]),
       username: new FormControl(null, [Validators.required]),
       gender: new FormControl(null, [Validators.required]),

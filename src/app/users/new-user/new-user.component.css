@@ -1,3 +1,6 @@
+input.ng-valid {
+  border: 1px solid green;
+}
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
@@ -6,4 +9,7 @@ label.gender-radio {
   left: 12px;
   bottom: -12px;
   padding: 5px;
+}
+div.error span {
+  color: red;
 }

@@ -11,11 +11,17 @@
           class="form-control"
           formControlName="id"
         />
-        <span
+        <div
+          class="error"
           *ngIf="!signupForm.get('id').valid && signupForm.get('id').touched"
         >
-          <p>Please input valid id!</p></span
-        >
+          <span *ngIf="signupForm.get('id').errors?.['required']">
+            Id is required!
+          </span>
+          <span *ngIf="signupForm.get('id').hasError('duplicatedId')">
+            This Id already exists, Please enter other Id!
+          </span>
+        </div>
         <div class="form-group">
           <label for="username">Username</label>
           <input
@@ -25,9 +31,17 @@
             name="username"
             formControlName="username"
           />
-          <!-- <p *ngIf="!username.valid && username.touched"> -->
-          <!-- Please enter valid username! -->
-          <!-- </p> -->
+          <div
+            class="error"
+            *ngIf="
+              !signupForm.get('username').valid &&
+              signupForm.get('username').touched
+            "
+          >
+            <span *ngIf="signupForm.get('username').errors?.['required']"
+              >Username is required!</span
+            >
+          </div>
         </div>
         <div class="form-group">
           <label for="age">Date of birth</label>
@@ -47,6 +61,14 @@
           />
           <mat-datepicker #picker></mat-datepicker>
         </div>
+        <div
+          class="error"
+          *ngIf="!signupForm.get('age').valid && signupForm.get('age').touched"
+        >
+          <span *ngIf="signupForm.get('age').errors?.['required']"
+            >Date of birth is required!</span
+          >
+        </div>
         <div class="form-group">
           <label for="job">Job</label>
           <input
@@ -56,8 +78,14 @@
             formControlName="job"
           />
         </div>
-        <!-- <p *ngIf="!job.valid && job.touched">Please enter valid job!</p> -->
-
+        <div
+          class="error"
+          *ngIf="!signupForm.get('job').valid && signupForm.get('job').touched"
+        >
+          <span *ngIf="signupForm.get('job').errors?.['required']"
+            >Job is required!</span
+          >
+        </div>
         <div class="radio position-relative" *ngFor="let gender of genders">
           <input
             type="radio"
@@ -66,6 +94,16 @@
             formControlName="gender"
           />
           <label class="gender-radio" for=""> {{ gender }} </label>
+        </div>
+        <div
+          class="error"
+          *ngIf="
+            !signupForm.get('gender').valid && signupForm.get('gender').touched
+          "
+        >
+          <span *ngIf="signupForm.get('gender').errors?.['required']"
+            >Gender is required!</span
+          >
         </div>
         <button
           class="btn btn-primary"
