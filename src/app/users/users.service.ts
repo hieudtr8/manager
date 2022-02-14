@@ -5,12 +5,21 @@ import { User } from './user.model';
   providedIn: 'root',
 })
 export class UsersService {
+  private userTableHeaders: string[] = [
+    'Name',
+    'Date of birth',
+    'Job',
+    'Gender',
+  ];
   private users: User[] = [];
   usersChanged = new Subject<User[]>();
   constructor() {
     if (localStorage.getItem('listUsers')) {
       this.users = this.getUserStorage();
     }
+  }
+  getUserTableHeaders() {
+    return this.userTableHeaders;
   }
   getUsers() {
     return this.users;

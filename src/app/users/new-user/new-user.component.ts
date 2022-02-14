@@ -1,4 +1,4 @@
-import { formatDate } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -18,9 +18,10 @@ export class NewUserComponent implements OnInit {
 
   constructor(
     private userService: UsersService,
-    private router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService
+    private router: Router,
+    private toastr: ToastrService,
+    private datepipe: DatePipe
   ) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 70, 0, 1);
@@ -57,7 +58,10 @@ export class NewUserComponent implements OnInit {
   onSubmit() {
     this.user.id = this.signupForm.value.id;
     this.user.name = this.signupForm.value.username;
-    this.user.age = this.signupForm.value.age;
+    this.user.age = this.datepipe.transform(
+      this.signupForm.value.age,
+      'yyyy-MM-dd'
+    );
     this.user.gender = this.signupForm.value.gender;
     this.user.job = this.signupForm.value.job;
 

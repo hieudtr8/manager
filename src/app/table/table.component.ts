@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from '../products/product.model';
@@ -13,6 +19,7 @@ import { UsersService } from '../users/users.service';
 })
 export class TableComponent implements OnInit {
   listDisplay: User[] | Product[];
+  tableHeaders: string[] = [];
   currentPath: string;
   displayProducts: boolean;
   displayUsers: boolean;
@@ -28,10 +35,12 @@ export class TableComponent implements OnInit {
     this.currentPath = this.router.url;
     if (this.currentPath == '/products') {
       this.displayProducts = true;
+      this.tableHeaders = this.productsService.getProductTableHeader();
       this.listDisplay = this.productsService.getProducts();
     } else if (this.currentPath == '/users') {
       this.displayUsers = true;
       this.listDisplay = this.usersService.getUsers();
+      this.tableHeaders = this.usersService.getUserTableHeaders();
       this.usersChanged = this.usersService.usersChanged.subscribe(
         (users: User[]) => {
           this.listDisplay = users;

@@ -17,6 +17,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ToastrModule } from 'ngx-toastr';
+import { KeysPipe } from './keys.pipe';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
     HeadersComponent,
     NewUserComponent,
     NewProductComponent,
+    KeysPipe,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatDatepickerModule,
     NgbModule,
   ],
-  providers: [UsersService, ProductsService],
+  providers: [UsersService, ProductsService, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

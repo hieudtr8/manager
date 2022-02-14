@@ -2,12 +2,16 @@ import { Subject } from 'rxjs';
 import { Product } from './product.model';
 
 export class ProductsService {
+  private productTableHeader: string[] = ['title', 'quantity', 'price'];
   private products: Product[] = [];
   productsChanged = new Subject<Product[]>();
   constructor() {
     if (localStorage.getItem('listProducts')) {
       this.products = this.getProductStorage();
     }
+  }
+  getProductTableHeader() {
+    return this.productTableHeader;
   }
   getProducts() {
     return this.products;
