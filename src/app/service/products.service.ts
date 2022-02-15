@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { Product } from './product.model';
+import { Product } from '../model/product.model';
 
 export class ProductsService {
   private productTableHeader: string[] = ['title', 'quantity', 'price'];

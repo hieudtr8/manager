@@ -1,9 +1,9 @@
 <!-- Table  -->
 <table class="table">
   <!-- Table Head -->
+  <!-- <h2 *ngIf="emptyTable">No records yet!</h2> -->
   <thead>
     <tr>
-      <!-- <th scope="col">#</th> -->
       <th *ngFor="let head of listDisplay[0] | keys" scope="col">
         {{ head }}
       </th>

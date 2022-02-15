@@ -3,8 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../user.model';
-import { UsersService } from '../users.service';
+import { User } from '../../model/user.model';
+import { UsersService } from '../../service/users.service';
 
 @Component({
   selector: 'app-new-user',

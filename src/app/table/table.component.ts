@@ -1,5 +1,6 @@
 import {
   Component,
+  Input,
   OnDestroy,
   OnInit,
   Pipe,
@@ -7,10 +8,10 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Product } from '../products/product.model';
-import { ProductsService } from '../products/products.service';
-import { User } from '../users/user.model';
-import { UsersService } from '../users/users.service';
+import { Product } from '../model/product.model';
+import { ProductsService } from '../service/products.service';
+import { User } from '../model/user.model';
+import { UsersService } from '../service/users.service';
 
 @Component({
   selector: 'app-table',
@@ -18,12 +19,10 @@ import { UsersService } from '../users/users.service';
   styleUrls: ['./table.component.css'],
 })
 export class TableComponent implements OnInit {
-  listDisplay: User[] | Product[];
+  @Input() listDisplay: User[] | Product[];
   tableHeaders: string[] = [];
   currentPath: string;
-  displayProducts: boolean;
-  displayUsers: boolean;
-  private usersChanged: Subscription;
+  emptyTable: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -32,21 +31,10 @@ export class TableComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.currentPath = this.router.url;
-    if (this.currentPath == '/products') {
-      this.displayProducts = true;
-      this.tableHeaders = this.productsService.getProductTableHeader();
-      this.listDisplay = this.productsService.getProducts();
-    } else if (this.currentPath == '/users') {
-      this.displayUsers = true;
-      this.listDisplay = this.usersService.getUsers();
-      this.tableHeaders = this.usersService.getUserTableHeaders();
-      this.usersChanged = this.usersService.usersChanged.subscribe(
-        (users: User[]) => {
-          this.listDisplay = users;
-        }
-      );
+    if (this.listDisplay == []) {
+      this.emptyTable = true;
     }
+    console.log(this.listDisplay);
   }
   onEdit(id: number) {
     if (this.currentPath == '/users') {

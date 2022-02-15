@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Product } from '../product.model';
-import { ProductsService } from '../products.service';
+import { Product } from '../../model/product.model';
+import { ProductsService } from '../../service/products.service';
 
 @Component({
   selector: 'app-new-product',

@@ -13,7 +13,6 @@ const routes: Routes = [
     path: 'users',
     component: UsersComponent,
     children: [
-      { path: '', component: TableComponent },
       { path: 'new', component: NewUserComponent },
       { path: ':id/edit', component: NewUserComponent },
     ],
@@ -22,7 +21,6 @@ const routes: Routes = [
     path: 'products',
     component: ProductsComponent,
     children: [
-      { path: '', component: TableComponent },
       { path: 'new', component: NewProductComponent },
       { path: ':id/edit', component: NewProductComponent },
     ],
